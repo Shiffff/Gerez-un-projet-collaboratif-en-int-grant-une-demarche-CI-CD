@@ -40,6 +40,12 @@ jobs:
         run: |
           pwd
           ls -al
+          cd front
+          ls -al
+          cd coverage 
+          ls -al
+          cd bobap
+          ls -al
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
