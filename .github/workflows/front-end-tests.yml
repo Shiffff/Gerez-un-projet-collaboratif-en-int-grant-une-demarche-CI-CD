@@ -36,11 +36,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-        - name: Print current directory
+      - name: Print current directory
         run: |
           pwd
           ls -al
-          
+
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         with:
