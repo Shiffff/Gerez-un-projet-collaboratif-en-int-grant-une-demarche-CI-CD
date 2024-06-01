@@ -38,13 +38,9 @@ jobs:
 
       - name: Print current directory
         run: |
-          pwd
+          cd ${{ github.workspace }}/front
           ls -al
-          cd front
-          ls -al
-          cd coverage 
-          ls -al
-          cd bobap
+          cd coverage
           ls -al
 
       - name: SonarCloud Scan
