@@ -22,17 +22,10 @@ jobs:
           cd ${{ github.workspace }}/front
           npm install
 
-      - name: Run Tests
+      - name: Run Tests and generate coverage
         run: |
           cd ${{ github.workspace }}/front
           npm run test:prod
-
-      - name: List files in coverage directory
-        run: |
-          cd ${{ github.workspace }}/front
-          ls -al
-          ls -al coverage
-          ls -al coverage/bobapp
 
       - name: Upload Test Results
         if: success()
@@ -40,28 +33,6 @@ jobs:
         with:
           name: test-results
           path: ${{ github.workspace }}/front/coverage
-
-  sonar_front:
-    needs: [test_front]
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20.x"
-
-      - name: Install Dependencies
-        run: |
-          cd ${{ github.workspace }}/front
-          npm install
-
-      - name: Run Tests (for coverage)
-        run: |
-          cd ${{ github.workspace }}/front
-          npm run test:prod
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
@@ -74,7 +45,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_FRONT }}
 
   docker_create_push_front:
-    needs: [test_front, sonar_front]
+    needs: [test_sonar_front]
     runs-on: ubuntu-latest
 
     steps:
