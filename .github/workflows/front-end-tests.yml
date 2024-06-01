@@ -9,6 +9,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    
+      - name: Print current directory
+      run: |
+        pwd
+        ls -al
+
       - name: Checkout Repository
         uses: actions/checkout@v4
 
