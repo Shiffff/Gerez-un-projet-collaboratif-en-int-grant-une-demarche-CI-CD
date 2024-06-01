@@ -6,7 +6,6 @@ on:
 
 jobs:
   sonar_front:
-    needs: [test_front]
     runs-on: ubuntu-latest
 
     steps:
