@@ -10,7 +10,7 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -21,27 +21,46 @@ jobs:
         run: |
           cd ${{ github.workspace }}/front
           npm install
+
+      - name: Run Tests
+        run: |
+          cd ${{ github.workspace }}/front
           npm run test:prod
 
       - name: Upload Test Results
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: test-results
-          path: ${{ github.workspace }}/front/coverage/bobapp
+          path: ${{ github.workspace }}/front/coverage
 
   sonar_front:
     needs: [test_front]
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
 
-      - name: Print current directory
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+
+      - name: Install Dependencies
+        run: |
+          cd ${{ github.workspace }}/front
+          npm install
+
+      - name: Run Tests (for coverage)
+        run: |
+          cd ${{ github.workspace }}/front
+          npm run test:prod
+
+      - name: List files in coverage directory
         run: |
           cd ${{ github.workspace }}/front
           ls -al
-          cd coverage
-          ls -al
+          ls -al coverage
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
@@ -57,7 +76,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
 
       - name: Login to Docker Hub
         uses: docker/login-action@v3
@@ -66,7 +85,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build image and push on Dockerhub
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v4
         with:
           context: ./front
           push: true
