@@ -45,7 +45,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_FRONT }}
 
   docker_create_push_front:
-    needs: [test_sonar_front]
+    needs: [test_front]
     runs-on: ubuntu-latest
 
     steps:
