@@ -30,12 +30,26 @@ jobs:
         with:
           name: test-results
           path: ${{ github.workspace }}/front/coverage/bobapp
+
+      - name: Upload LCOV Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: lcov-report
+          path: ${{ github.workspace }}/front/coverage/bobapp/lcov.info
+
   sonar_front:
     needs: [test_front]
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Download LCOV Report
+        uses: actions/download-artifact@v4
+        with:
+          name: lcov-report
+          path: ${{ github.workspace }}/front/coverage/bobapp
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
@@ -45,13 +59,15 @@ jobs:
           args: >
             -Dsonar.organization=shiffff
             -Dsonar.projectKey=shiffff-bobapp-front
-            -Dsonar.typescript.lcov.reportPaths=coverage/bobapp/lcov.info
+            -Dsonar.typescript.lcov.reportPaths=front/coverage/bobapp/lcov.info
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_FRONT }}
+
   docker_create_push_front:
     needs: [test_front, sonar_front]
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
