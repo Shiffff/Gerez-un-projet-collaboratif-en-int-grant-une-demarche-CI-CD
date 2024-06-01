@@ -21,9 +21,7 @@ jobs:
         run: |
           cd ${{ github.workspace }}/front
           npm install
-
-      - name: Run Angular Tests with Code Coverage
-        run: cd ${{ github.workspace }}/front && npm run test:prod
+          npm run test:prod
 
       - name: Upload Test Results
         uses: actions/upload-artifact@v4
