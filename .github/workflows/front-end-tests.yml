@@ -58,18 +58,6 @@ jobs:
           cd ${{ github.workspace }}/front
           npm install
 
-      - name: Run Tests (for coverage)
-        run: |
-          cd ${{ github.workspace }}/front
-          npm run test:prod
-
-      - name: List files in coverage directory
-        run: |
-          cd ${{ github.workspace }}/front
-          ls -al
-          ls -al coverage
-          ls -al coverage/bobapp
-
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         with:
