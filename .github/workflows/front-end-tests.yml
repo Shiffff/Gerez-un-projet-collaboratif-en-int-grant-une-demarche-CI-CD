@@ -23,15 +23,7 @@ jobs:
           npm install
 
       - name: Run Angular Tests with Code Coverage
-        run: |
-          cd ${{ github.workspace }}/front
-          npm run test:prod
-
-      - name: List Coverage Files
-        run: |
-          cd ${{ github.workspace }}/front/coverage/bobapp
-          ls -la
-          cat lcov.info || echo "lcov.info not found"
+        run: cd ${{ github.workspace }}/front && npm run test:prod
 
       - name: Upload Test Results
         uses: actions/upload-artifact@v4
@@ -39,12 +31,18 @@ jobs:
           name: test-results
           path: ${{ github.workspace }}/front/coverage/bobapp
 
+      - name: Include lcov Coverage Report as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: ${{ github.workspace }}/front/coverage/bobapp/lcov.info
+
   sonar_front:
     needs: [test_front]
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
