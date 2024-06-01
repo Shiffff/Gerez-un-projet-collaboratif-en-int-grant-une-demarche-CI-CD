@@ -43,7 +43,7 @@ jobs:
           args: >
             -Dsonar.organization=shiffff
             -Dsonar.projectKey=shiffff-bobapp-front
-            -Dsonar.typescript.lcov.reportPaths=${{ github.workspace }}/front/coverage/bobapp
+            -Dsonar.typescript.lcov.reportPaths=front/coverage/bobapp
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_FRONT }}
