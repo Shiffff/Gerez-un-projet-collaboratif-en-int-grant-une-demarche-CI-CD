@@ -36,20 +36,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Download Test Results Artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: test-results
-          path: ${{ github.workspace }}/test-results
-
       - name: Print current directory
         run: |
           pwd
           ls -al
-
-      - name: Copy LCOV file to expected location
-        run: |
-          cp ${{ github.workspace }}/test-results/front/coverage/bobapp/lcov.info ${{ github.workspace }}/front/coverage/bobapp/lcov.info
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
