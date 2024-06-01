@@ -20,24 +20,4 @@ export class AppComponent implements OnInit {
   public getRandomJoke(): void {
     this.jokesService.getRandomJoke();
   }
-
-  public add(a: number, b: number): number {
-    return a + b;
-  }
-
-  public factorial(n: number): number {
-    let result = 1;
-    for (let i = 1; i <= n; i++) {
-      result = result * i;
-    }
-    return result;
-  }
-  public celsiusToFahrenheit(celsius: number): number {
-    const fahrenheit = (celsius * 9) / 5 + 32;
-    return fahrenheit;
-  }
-
-  public isEven(n: number): boolean {
-    return n % 2 === 0;
-  }
 }
