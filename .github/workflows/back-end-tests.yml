@@ -62,10 +62,10 @@ jobs:
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_BACK }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_NEW }}
         run: |
           cd Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD/back
-          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=shiffff_bobapp-back
+          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=shiffff_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
   docker_create_push_back:
     needs: [test_back, sonar_back]
     runs-on: ubuntu-latest

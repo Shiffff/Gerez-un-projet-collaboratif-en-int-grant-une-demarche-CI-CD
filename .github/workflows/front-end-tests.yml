@@ -43,10 +43,10 @@ jobs:
           projectBaseDir: ./front
           args: >
             -Dsonar.organization=shiffff
-            -Dsonar.projectKey=shiffff_bobapp-front
+            -Dsonar.projectKey=shiffff_Gerez-un-projet-collaboratif-en-int-grant-une-demarche-CI-CD
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_FRONT }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_NEW }}
   docker_create_push_front:
     needs: [test_front, sonar_front]
     runs-on: ubuntu-latest
