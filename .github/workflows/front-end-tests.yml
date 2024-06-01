@@ -44,6 +44,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Download Coverage Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: coverage-report
+          path: ${{ github.workspace }}/front/coverage-report
+
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         with:
@@ -52,7 +58,7 @@ jobs:
           args: >
             -Dsonar.organization=shiffff
             -Dsonar.projectKey=shiffff-bobapp-front
-            -Dsonar.typescript.lcov.reportPaths=coverage/bobapp/lcov.info
+            -Dsonar.typescript.lcov.reportPaths=coverage-report/lcov.info
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_FRONT }}
