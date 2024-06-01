@@ -63,8 +63,7 @@ jobs:
         with:
           fetch-depth: 0
           projectBaseDir: ./front
-          extraArgs: |
-            -Dsonar.javascript.lcov.reportPaths=coverage/bobapp/lcov.info
+          args: -Dsonar.javascript.lcov.reportPaths=coverage/bobapp/lcov.info
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_FRONT }}
